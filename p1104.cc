@@ -5,7 +5,6 @@ public:
         // length of layer = (1 << i);
         int layer = 0;
         int count = 0;
-        int i = 0;
         while (count < label) {
            int len = (1 << layer);
             count += len;
