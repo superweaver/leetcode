@@ -10,4 +10,5 @@ echo "" >>$1
 echo -e "\tSolution s;" >> $1
 echo -e "\treturn 0;" >> $1
 echo "}" >> $1
+ls -lrt
 #vi $1
