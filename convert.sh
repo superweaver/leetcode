@@ -5,4 +5,4 @@
 # echo "$@" | sed "s/\[/\{/g; s/\]/\}/g"
 # 2) use xclip utility
 # copy content into clipboard, then run convert.sh
-echo $(xclip -o) | sed "s/\[/\{/g; s/\]/\}/g" | xclip -o
+echo `xclip -o` | sed "s/\[/\{/g; s/\]/\}/g"
