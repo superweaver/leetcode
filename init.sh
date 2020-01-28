@@ -1,14 +1,16 @@
 #!/bin/bash
-if [ -f $1 ]
+file=$1
+if [ -f $file ]
 then
-    rm -i $1
+    rm -i $file
 fi
-echo "#include \"common.h\"" >> $1
-echo "" >>$1
-echo "int main() {" >> $1
-echo "" >>$1
-echo -e "\tSolution s;" >> $1
-echo -e "\treturn 0;" >> $1
-echo "}" >> $1
-ls -lrt
-#vi $1
+
+echo "#include \"common.h\"" >> $file
+echo "" >>$file
+echo "int main() {" >> $file
+echo "" >>$file
+echo -e "\tSolution s;" >> $file
+echo -e "\treturn 0;" >> $file
+echo "}" >> $file
+ls -lrt --color=auto
+#vi $file
