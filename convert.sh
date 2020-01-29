@@ -11,4 +11,5 @@
 
 # !!! this works
 # 3) this can handle multiple lines and it uses content from system clipboard instead of termianl clipboard
-echo $(xclip -selection clipboard -o) | sed "s/\[/\{/g; s/\]/\}/g"
+# echo $(xclip -selection clipboard -o) | sed "s/\[/\{/g; s/\]/\}/g"
+echo $(xclip -selection clipboard -o) | tr [] {}
