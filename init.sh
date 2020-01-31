@@ -15,5 +15,5 @@ echo -e "\tSolution s;" >> $file
 echo "" >>$file
 echo -e "\treturn 0;" >> $file
 echo "}" >> $file
-ls -lrt --color=auto
+ls -lrt --color=auto $file
 #vi $file
