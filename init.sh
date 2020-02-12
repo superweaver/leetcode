@@ -14,7 +14,7 @@ else
 	echo -e "\treturn 0;" >> $file
 	echo "}" >> $file
 	ls -lrt --color=auto $file
-	vim $file
+	#vim $file
 fi
 
 
