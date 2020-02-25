@@ -47,12 +47,19 @@ private:
         if (!current) {
             return ;
 		}
+		int probe = 1;
 		for (int i = 0; i < 26; ++i) {
-			if (current->children[i] && ((key & (1 << i)) == (1 << i)) ) {
-                helper(current->children[i], result, firstletter, met || (i == firstletter) , key);
+            if (current->children[i]) {
+                if ((key & probe) == probe) {
+                    helper(current->children[i], result, firstletter, met || (i == firstletter),
+                           key);
+                } else if (probe > key) {
+                    break;
+                }
             }
-		}
-        result += met? current->count : 0;
+			probe <<= 1;
+        }
+        result += met ? current->count : 0;
     }
 };
 class Solution {
@@ -90,7 +97,9 @@ private:
 	int getkey(string& s) {
 		int ones = 0;	
 		int key = 0;
-		for (auto c : s) {
+		int n = s.size();
+		for (int i = 0;	i < n;) {
+			char c = s[i];
 			int probe = 1 << (c - 'a');
             if ((key & probe) == 0) {
                 ones++;
@@ -99,6 +108,16 @@ private:
 				}
             }
 			key |=  probe;
+			if (i == n-1) {
+				break;
+			}
+			int j = i + 1;
+            for (; j < n; ++j) {
+                if (s[j] != s[i]) {
+					break;
+				}
+            }
+			i = j;
         }
 		//key += (int(s[0]-'a') << 26);
 		return key;
