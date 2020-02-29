@@ -52,7 +52,52 @@ private:
 };
 class Solution {
 public:
-    int maxFreq(string s, int maxLetters, int minSize, int maxSize)
+	//https://blog.csdn.net/qq_32424059/article/details/103662574
+    int maxFreq(string s, int maxLetters, int minSize, int maxSize) {
+		// maxSize is a redundant condition
+		// assume a substring str has less than maxLetters unique letters
+		// thn pick its first minSize letters, this smaller substring must have less than maxLetters unique letters
+		int result = 0;
+		int n = s.size();
+		if (n < minSize) {
+			return result;
+		}
+		unordered_map<string, int> count;
+		vector<int> cache(128, 0);
+		int unique = 0;
+		int i = 0;
+		// int left = 0;
+        for (; i < minSize; ++i) {
+            cache[s[i]]++;
+			if (cache[s[i]] == 1) {
+                unique++;
+            }
+
+        }
+		
+        for (; i <= n; ++i) { // i is not included
+			int j = i - minSize; // head
+			if (unique <= maxLetters) {
+                string str = s.substr(j, minSize);
+                int c = ++count[str];
+                result = max(result, c);
+            }
+            if (i < n) {
+                cache[s[i]]++;
+                if (cache[s[i]] == 1) {
+                    unique++;
+                }
+				cache[s[j]]--;
+				if (cache[s[j]] == 0) {
+					unique--;
+				}
+            } else {
+                break;
+            }
+        }
+        return result;
+	}
+    int maxFreq_hash(string s, int maxLetters, int minSize, int maxSize)
     {
         int n = s.size();
         if (n < minSize) {
