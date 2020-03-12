@@ -10,6 +10,7 @@ public:
 		// 1) arr1[i] - arr2[i] + i - (arr1[j] - arr2[j] + j) 
 		// 2) -arr1[i] + arr2[i] + i - (-arr1[j] + arr2[j] + j) 
 		// 3) -arr1[i] - arr2[i] + i - (-arr1[j] - arr2[j] + j) 
+		// Use the idea that abs(A) + abs(B) = max(A+B, A-B, -A+B, -A-B).
 
         int n = arr1.size();
         vector<int> v(4, 0);
