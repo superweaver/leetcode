@@ -146,7 +146,9 @@ public:
 
 int main() {
 	string str = "banana";
+	str = string(10000, 'a');
 	Solution s;
-	displayvector(s.suffix_array_construction(str));
+	//displayvector(s.suffix_array_construction(str));
+	cout << (s.suffix_array_construction(str)).back() << endl;
 	return 0;
 }
