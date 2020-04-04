@@ -4,6 +4,44 @@ public:
     int numTeams(vector<int>& rating)
     {
         size_t n = rating.size();
+        int total = 0;
+        if (n < 3) {
+            return 0;
+        }
+        vector<int> less_left(n, 0);
+        vector<int> greater_left(n, 0);
+        multiset<int> left{ rating[0] };
+        // left to right
+        for (size_t i = 1; i < n; ++i) {
+            auto& current = rating[i];
+            auto eq_left = left.equal_range(current);
+            auto less = distance(left.begin(), eq_left.first);
+            auto greater = distance(eq_left.second, left.end());
+            less_left[i] = less;
+            greater_left[i] = greater;
+            left.insert(current);
+        }
+        // vector<int> less_right(n, 0);
+        // vector<int> greater_right(n, 0);
+        multiset<int> right{ rating.back() };
+        //  right to left
+        for (int i = n - 2; i >= 0; --i) {
+            auto& current = rating[i];
+            auto eq_right = right.equal_range(current);
+            auto less = distance(right.begin(), eq_right.first);
+            auto greater = distance(eq_right.second, right.end());
+            // less_right[i] = less;
+            // greater_right[i] = greater;
+            total += less * greater_left[i];
+            total += greater * less_left[i];
+            right.insert(current);
+        }
+        return total;
+    }
+
+    int numTeams_3(vector<int>& rating)
+    {
+        size_t n = rating.size();
         if (n < 3) {
             return 0;
         }
@@ -61,8 +99,8 @@ int main()
 {
 
     vector<int> rating = { 2, 5, 3, 4, 1 };  // 3
-    //rating = { 2, 1, 3 };                    // 0
-    //rating = { 1, 2, 3, 4 };                 // 4
+    // rating = { 2, 1, 3 };                    // 0
+     rating = { 1, 2, 3, 4 };                 // 4
 
     Solution s;
     cout << s.numTeams(rating) << endl;
