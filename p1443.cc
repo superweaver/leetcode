@@ -1,7 +1,35 @@
 #include "common.h"
+#include <functional>
 class Solution {
 public:
   int minTime(int n, vector<vector<int>> &edges, vector<bool> &hasApple) {
+      vector<vector<int>> graph(n); // nodes are 0...n-1
+      for (const auto &e : edges) {
+          graph[e[0]].push_back(e[1]);
+          graph[e[1]].push_back(e[0]);
+      }
+      // note, this is tree
+      // dfs
+      vector<bool> visited(n, false);
+      visited[0] = true; // root
+      function<int(int)> dfs = [&](int root) -> int {
+          visited[root] = true;
+          int cost = 0; // return necessary time spent to walk from root to its subtrees
+          for (int c : graph[root]) {
+              if (visited[c]) {
+                  continue;
+              }
+              int sc = dfs(c);
+              if (sc || hasApple[c]) {
+                  // note !!! hasApple[c]
+                  cost += sc + 2;
+              }
+          }
+          return cost;
+      };
+      return dfs(0);
+  }
+  int minTime_bfs(int n, vector<vector<int>> &edges, vector<bool> &hasApple) {
       unordered_map<int, vector<int>> graph;
       for (const auto &e : edges) {
           graph[e[0]].push_back(e[1]);
@@ -66,7 +94,9 @@ int main() {
 
     n = 7, edges = {{0,1},{0,2},{1,4},{1,5},{2,3},{2,6}}, hasApple = {false,false,true,false,true,true,false}; // 8
 
+    n = 3, edges = {{0,1}, {0, 2}}, hasApple = {true, false, false};
 	Solution s;
+    cout << s.minTime_bfs(n, edges, hasApple) << endl;
     cout << s.minTime(n, edges, hasApple) << endl;
 
 	return 0;
