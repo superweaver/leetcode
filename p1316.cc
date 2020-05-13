@@ -7,6 +7,61 @@
 // same string has same prefix_sum
 // xor of two same string is 0
 // gethash
+// a trick here
+class Solution {
+  public:
+    int distinctEchoSubstrings(string text) {
+        int n = text.size();
+        vector<long> hash(n + 1, 1);
+        vector<long> power(n + 1, 1);
+        for (int i = 0; i < n; ++i) {
+            char c = text[i];
+            hash[i + 1] = (hash[i] * 33 + c) % MOD;
+            power[i + 1] = (power[i] * 33) % MOD;
+        }
+        unordered_set<long> echostrings; // hash value
+        for (int i = 0; i < n; ++i) {
+            // from larger len to smaller len
+            for (int len = (n - i) / 2; len > 0; len--) {
+                auto left = gethash(i, i + len, hash, power);
+                auto right = gethash(i + len, i + len*2, hash, power);
+                if (left == right) {
+                    if (echostrings.count(left)) {
+                        //continue;
+                        break;
+                        // why break works
+                        // because echostrings has already has text[i..i + len)
+                        // we don't need to consider it any more
+                        // why break?
+                        // for example
+                        // ABCDABCD
+                        // len = 4 has been handled
+                        // and hash(ABCD) is in echostrings !!!
+                        // then the next few steps has been handled for (ABC, DAB), (AB, CD), (A, B)
+                        // previously
+                    }
+                    echostrings.insert(left);
+                }
+            }
+        }
+        return echostrings.size();
+    }
+
+  private:
+    inline long gethash(int begin, int end, vector<long> &hash, vector<long> &power) {
+        //[begin, end)
+        int len = end - begin;
+        // hash[begin] * power[len] + x = hash[end]
+        auto h = hash[end] - (hash[begin] * power[len]) % MOD;
+        h %= MOD;
+        if (h < 0) {
+            h += MOD;
+        }
+        return h;
+    }
+
+    const int MOD = 1e9 + 7;
+};
 
 class Solution {
   public:
