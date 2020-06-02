@@ -1,7 +1,36 @@
 #include "common.h"
 class Solution {
 public:
+    // https://www.youtube.com/post/Ugxq78dQinIUlevS1_54AaABCQ
+    
   int minReorder(int n, vector<vector<int>> &connections) {
+      // nice graph construction
+      vector<vector<pair<int, int>>> graph(n); // u->v, cost
+      for (auto&e : connections) {
+          graph[e[0]].push_back({e[1], 1}); // u->v, need flip
+          graph[e[1]].push_back({e[0], 0}); // u->v  doesnot need flip, add it in graph to traverse all edges
+      }
+      vector<int> visited(n);
+      queue<int> q;
+      q.push(0);
+      visited[0] = 1;
+      int result = 0;
+      while(!q.empty()) {
+          auto current = q.front();
+          q.pop();
+          // decompose pair into next and cost
+          //for (auto &[next, cost] : graph[current]) { // c++17
+          for (auto &p : graph[current]) { // c++17
+              if (!visited[p.first]) {
+                  visited[p.first] = 1;
+                  q.push(p.first);
+                  result += p.second;
+              }
+          }
+      }
+      return result;
+  }
+  int minReorder_my(int n, vector<vector<int>> &connections) {
       // 2 <= n <= 5 * 10^4
       // dfs + bfs
       // nice question, hard to solve
@@ -72,7 +101,7 @@ int main() {
     n = 5, connections = {{1,0},{1,2},{3,2},{3,4}}; // 2
     n = 3, connections = {{1,0},{2,0}}; // 0
     n = 5; connections = {{1, 0}, {1, 2}, {2, 3}, {4, 2}}; // 2
-    n = 4; connections = {{1, 0}, {2, 1}, {3, 2}}; // 0
+    //n = 4; connections = {{1, 0}, {2, 1}, {3, 2}}; // 0
 
     Solution s;
     cout << s.minReorder(n, connections) << endl;

@@ -62,6 +62,10 @@ public:
         if (leftcolor > rightcolor) {
             return;
         }
+        int potentialcolors = balls.size() - start;
+        if (leftcolor + potentialcolors < rightcolor - potentialcolors) {
+            return;
+        }
         if (start >= balls.size()) {
             return;
         }
