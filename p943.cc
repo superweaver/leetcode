@@ -35,7 +35,7 @@ class Solution {
                     costs[i][j] = calculateCost(A[i], A[j]);
                 }
             }
-            // dp[s][i] is the min cost to achieve state s and the sequence ends at A[
+            // dp[s][i] is the min cost to achieve state s and the sequence ends at A[i]
             // base case: dp[1 << i][i] = A[i].size();
             // transition:
             // dp[s][i] = min{dp[s-(1<<i)][j] + costs[j][i]}
