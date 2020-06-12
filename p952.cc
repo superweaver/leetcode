@@ -13,7 +13,7 @@ public:
 			for (int i = 2;  i <= bound; ++i) {
 				if (a % i == 0) {
 					uf.Union(i, a);
-					uf.Union(i, a / i);
+					uf.Union(i, a / i); // nice
 					// this is used to connect different common factor
 					// note a / i is also >= i >= 2;
 					// !!!!Union a with its factors

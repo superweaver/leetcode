@@ -1,6 +1,25 @@
 #include "common.h"
+
 class Solution {
 public:
+  int maxWidthRamp_ref(vector<int> &A) {
+      // https://leetcode.com/problems/maximum-width-ramp/discuss/208348/JavaC%2B%2BPython-O(N)-Using-Stack
+      stack<int> s;
+      int res = 0, n = A.size();
+      // get all decreasing sequence before find result from back to front
+      for (int i = 0; i < n; ++i) {
+          if (s.empty() || A[s.top()] > A[i]) {
+              s.push(i);
+          }
+      }
+      for (int i = n - 1; i > res; --i) {
+          while (!s.empty() && A[s.top()] <= A[i]) {
+              res = max(res, i - s.top());
+              s.pop();
+          }
+      }
+      return res;
+  }
     int maxWidthRamp(vector<int>& A) {
 		// A[0..index] is a strictly decreasing array
 		// 1) overflow

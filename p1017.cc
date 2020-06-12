@@ -1,4 +1,34 @@
 #include "common.h"
+class Solution_ref {
+public:
+    string baseNeg2(int N) {
+
+        string str;
+        bool isNegative = false;
+        while(N>0)
+        {
+            int digit = N&1;
+            if (digit)
+                str += '1';
+            else
+                str += '0';
+            N /= 2;
+            if (isNegative && digit)
+                N += 1;
+            isNegative = !isNegative;
+        }
+
+        if (str.empty()) str ="0";
+        if (str.size()>1 && str[str.length()-1] == '0')
+            str.erase(str.length()-1);
+        reverse(str.data(), str.data() + str.length());
+
+        return str;
+
+
+    }
+};
+
 class Solution {
 public:
     string baseNeg2(int N) {

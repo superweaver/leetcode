@@ -34,37 +34,39 @@ public:
 		}
 		return result;
     }
-	int longestOnes(vector<int>& A, int K) {
-		int zeros = 0;
-		int n = A.size();
-		int right = -1;
-		int result = min(n, K);
-		if (result == n) {
-			return result;	
-		}
-		for (int left = 0; left < n; ) {
-			for (++right; right < n; ++right) {
-				zeros += 1 - A[right];
-				if (zeros == K + 1) {
-					--right;
-					--zeros;
-					result = max(result, right - left + 1);
-					break;
-				}
-				if (right == n - 1 && zeros <= K) {
-					result = max(result, right + 1 - left);
-				}
-			}
-			while(left < n && A[left]) {
-				++left;
-			}
-			if (left < n && !A[left]) {
-				left++;
-				zeros--;
-			}
-		}
-		return result;
-	}
+
+    int longestOnes(vector<int> &A, int K) {
+        int zeros = 0;
+        int n = A.size();
+        int right = -1;
+        int result = min(n, K);
+        if (result == n) {
+            return result;
+        }
+        // two pointers
+        for (int left = 0; left < n;) {
+            for (++right; right < n; ++right) {
+                zeros += 1 - A[right];
+                if (zeros == K + 1) { // !!!
+                    --right;
+                    --zeros;
+                    result = max(result, right - left + 1);
+                    break;
+                }
+                if (right == n - 1 && zeros <= K) {
+                    result = max(result, right + 1 - left);
+                }
+            }
+            while (left < n && A[left]) {
+                ++left;
+            }
+            if (left < n && !A[left]) {
+                left++;
+                zeros--;
+            }
+        }
+        return result;
+    }
 };
 
 int main() {

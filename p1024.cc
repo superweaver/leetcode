@@ -1,50 +1,50 @@
 #include "common.h"
 class Solution {
-public:
-    int videoStitching(vector<vector<int>>& clips, int T) {
-		if (T == 0) return 0;
-		sort(clips.begin(), clips.end(), [](const vector<int>&a, const vector<int>&b) {
-				if (a[0] != b[0]) {
-				return a[0] < b[0];
-				} else {
-				return a[1] < b[1];
-				}
-				});
-		// check if we can get [0, T]		
-		int n = clips.size();
-		if (clips[0][0] > 0) {
-			return -1;
-		}
-		int bound = 0;
-		int result = 0;
-		for (int i = 0; i < n;) {
-			if (clips[i][0] > bound) {
-				return -1;
-			}
-			if (clips[i][1] < bound) {
-				++i;
-				continue;
-			}
-			int nextbound = bound;
-			int j = i ;
-			for (; j < n; ++j) {
-				if (clips[j][0] > bound) {
-					break;
-				} else {
-					nextbound = max(nextbound, clips[j][1]);		
-				}
-
-			}
-			if (nextbound > bound) {
-				result++;
-			}
-			bound = nextbound;
-			i = j;
-			if (bound >= T) {
-				return result;
-			}
-		}
-		return -1;
+  public:
+    int videoStitching(vector<vector<int>> &clips, int T) {
+        if (T == 0)
+            return 0;
+        sort(clips.begin(), clips.end(), [](const vector<int> &a, const vector<int> &b) {
+            if (a[0] != b[0]) {
+                return a[0] < b[0];
+            } else {
+                return a[1] < b[1];
+            }
+        });
+        // check if we can get [0, T]
+        int n = clips.size();
+        if (clips[0][0] > 0) {
+            return -1;
+        }
+        int bound = 0;
+        int result = 0;
+        for (int i = 0; i < n;) {
+            if (clips[i][0] > bound) {
+                return -1;
+            }
+            if (clips[i][1] < bound) {
+                ++i;
+                continue;
+            }
+            int nextbound = bound;
+            int j = i;
+            for (; j < n; ++j) {
+                if (clips[j][0] > bound) {
+                    break;
+                } else {
+                    nextbound = max(nextbound, clips[j][1]);
+                }
+            }
+            if (nextbound > bound) {
+                result++;
+            }
+            bound = nextbound;
+            i = j;
+            if (bound >= T) {
+                return result;
+            }
+        }
+        return -1;
     }
 };
 

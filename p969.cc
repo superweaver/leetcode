@@ -6,8 +6,10 @@ public:
 		int n = A.size(); 
 		vector<int> result;
 		for (int i = n - 1; i >= 0; i--) {
-			if (A[i] == i + 1) continue;
-			// try to find it before i
+            if (A[i] == i + 1) {
+                continue;
+            }
+            // try to find it before i
 			for (int j = 0; j < i ; ++j) {
 				if (A[j] == i + 1) {
 					if (j > 0) {

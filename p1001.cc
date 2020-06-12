@@ -7,6 +7,7 @@ public:
 		unordered_map<int, int> column;
 		unordered_map<int, int> sum;	 // lamps.first + lamps.second
 		unordered_map<int, int> diff;	 // lamps.first - lamps.second
+        // Each lamp that is on illuminates every square on its x-axis, y-axis, and both diagonals (similar to a Queen in chess).
 		for (auto &v : lamps) {
 			int r = v[0];
 			int c = v[1];
