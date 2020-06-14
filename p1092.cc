@@ -11,8 +11,8 @@ public:
         vector<int> lcs;
 		int m = str1.size();
 		int n = str2.size();
-        vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0)); // the length of lcs for str1[0, m]
-        // and str2[0, n]
+        vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
+        // the length of lcs for str1[0, m] and str2[0, n]
         // dp[i][j]
         // dp[0][j] = 0;
         // dp[i][0] = 0;
