@@ -21,6 +21,7 @@ public:
 				auto right = current->next;
                 while (pre->next != right) {
                     tempsum += pre->next->val;
+                    // corner case
                     if (tempsum != sum) {
                         prefixsum.erase(tempsum);
                     }

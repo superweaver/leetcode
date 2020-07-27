@@ -8,6 +8,7 @@ public:
             return 0;
         }
         // dp[i][j] = sum(dp[i-1][j-k]), k = 1, 2, .. f
+        // j = [f ... i*f]
         vector<vector<int>> dp(d + 1, vector<int>(target + 1, 0));
         dp[0][0] = 1;
         for (int i = 1; i <= d; ++i) {

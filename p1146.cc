@@ -10,12 +10,17 @@ public:
 
     void set(int index, int val)
     {
+        // store current value
         diff[index] = val;
     }
     int snap()
     {
         if (!snap_id) {
             for (auto& p : diff) {
+                // p.first is index
+                // p.second is current value
+                // initical value is zero
+                // skip if p.second == 0
                 if (p.second != 0) {
                     lastModified[p.first].push_back({ snap_id, p.second });
                 }
@@ -27,6 +32,7 @@ public:
                     last.push_back({ snap_id, p.second });
                 } else {
                     if (last.back().second == p.second) {
+                        // skip if no change
                         continue;
                     } else {
                         last.push_back({ snap_id, p.second });

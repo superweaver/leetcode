@@ -25,14 +25,14 @@ public:
 private:
     int binarySearch(LL low, LL high, LL a, LL b, LL c, LL n)
     {
-        LL lcd_ab = lcd(a, b);
-        LL ab = a * b / lcd_ab;
-        LL lcd_ac = lcd(a, c);
-        LL ac = a * c / lcd_ac;
-        LL lcd_bc = lcd(b, c);
-        LL bc = b * c / lcd_bc;
-        LL lcd_abc = lcd(ab, c);
-        LL abc = ab * c / lcd_abc;
+        LL gcd_ab = gcd(a, b);
+        LL ab = a * b / gcd_ab;
+        LL gcd_ac = gcd(a, c);
+        LL ac = a * c / gcd_ac;
+        LL gcd_bc = gcd(b, c);
+        LL bc = b * c / gcd_bc;
+        LL gcd_abc = gcd(ab, c);
+        LL abc = ab * c / gcd_abc;
         while (low + 1 < high) {
             LL mid = low + (high - low) / 2;
             LL count = mid / a + mid / b + mid / c - mid / ab - mid / ac - mid / bc + mid / abc;
@@ -46,7 +46,8 @@ private:
         }
         return low;
     }
-    LL lcd(LL a, LL b)
+    
+    LL gcd(LL a, LL b)
     {
         if (a == b) {
             return a;

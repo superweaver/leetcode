@@ -30,8 +30,8 @@ public:
 };
 int main() {
     int label = 14;
-    label = 26;
-    label = 1023;
+    //label = 26;
+    //label = 1023;
     Solution s;
     displayvector(s.pathInZigZagTree(label));
     return 0;

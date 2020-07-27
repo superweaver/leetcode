@@ -4,9 +4,9 @@ public:
     bool btreeGameWinningMove(TreeNode* root, int n, int x) {
 		// n is odd
 		// fuck, only neighbor can be picked.
-		vector<int> counter(n + 1, 0);
-		vector<TreeNode*> self(n + 1, 0);
-		vector<TreeNode*> parent(n + 1, nullptr);
+        vector<int> counter(n + 1, 0);    // number of nodes in its subtree
+        vector<TreeNode*> self(n + 1, 0); // value -> pointer
+		vector<TreeNode*> parent(n + 1, nullptr); // value->parent pointer
 		dfs(root, counter, parent, self);
 		return check(root, x, counter, parent, self);
     }
@@ -37,6 +37,7 @@ private:
         // assume first play choose "firstPick"
         // what is the best option should second player choose
         // there are at most three ways to choose
+        // 1) node's parent 2) node's left child 3) node's right child
         TreeNode* p = parent[firstPick];
         TreeNode* node = self[firstPick];
         TreeNode* l = node->left;
